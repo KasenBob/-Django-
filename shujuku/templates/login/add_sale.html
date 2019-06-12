@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{#login/templates/login/index.html#}
+{% load staticfiles %}
+{% block title %}主页{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block nav_home_active4 %}active{% endblock %}
+{% block content %}
+    {% if request.session.is_login %}
+    <div class="container">
+        <div class="col-md-4 col-md-offset-4">
+          <form class='form-add_sale' action="/add_sale/" method="post">
+ 
+              {% if message %}
+                  <div class="alert alert-warning">{{ message }}</div>
+              {% endif %}
+ 
+              {% csrf_token %}
+ 
+              <h2 class="text-center">发票信息</h2>
+              <div class="form-group">
+                  {{ sale_form.good_num.label_tag }}
+                  {{ sale_form.good_num }}
+              </div>
+              <div class="form-group">
+                  {{ sale_form.shop_num.label_tag }}
+                  {{ sale_form.shop_num }}
+              </div>
+              <div class="form-group">
+                  {{ sale_form.sales_num.label_tag }}
+                  {{ sale_form.sales_num }}
+              </div>
+              
+              <button type="reset" class="btn btn-default pull-left">重置</button>
+              <button type="submit" class="btn btn-primary pull-right">提交</button>
+ 
+          </form>
+        </div>
+    </div> <!-- /container -->
+    {% else %}
+    <h1>你尚未登录，只能访问公开内容！</h1>
+    {% endif %}
+{% endblock %}

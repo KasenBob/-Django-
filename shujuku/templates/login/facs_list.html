@@ -1,0 +1,42 @@
+{#login/templates/login/index.html#}
+ 
+{% extends 'base.html' %}
+{% block title %}厂家信息{% endblock %}
+{% block nav_home_active2 %}active{% endblock %}
+{% block content %}
+    {% if request.session.is_login %}
+    <div>
+    	<a href="/add_fac" class="btn btn-primary btn-lg active" role="button">更新厂家信息</a>
+	</div>
+	<div>
+    	<table border="1" class="table table-hover">
+      	  	<thead>
+      	  		<tr>
+      	     		  <th>厂家编号</th>
+      	      		<th>厂家名称</th>
+      	      		<th>厂家位置</th>
+      	      		<th>厂家联系方式（电话号码）</th>      	 
+      	      		<th>操作</th>
+      	  		</tr>
+      	  	</thead>
+      	  	<tbody>
+        		{% for fac in facs_list %}
+            	<tr>
+               		<td>{{ fac.fac_num }}</td>
+                	<td>{{ fac.fac_name }}</td>
+                	<td>{{ fac.fac_position }}</td>
+                	<td>{{ fac.fac_phone_num }}</td>
+                	<td>
+                    	<a href="/del_fac?nid={{ fac.pk }}" class="btn btn-primary btn-xs active" role="button">删除</a>
+                    	|
+                    	<a href="/edit_fac?nid={{ fac.pk }}" class="btn btn-primary btn-xs active" role="button">编辑</a>
+                	</td>
+            	</tr>
+        		{% endfor %}
+        	</tbody>
+    	</table>
+	</div>
+    {% else %}
+    <h1>你尚未登录，只能访问公开内容！</h1>
+    {% endif %}
+{% endblock %}

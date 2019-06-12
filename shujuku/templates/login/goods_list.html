@@ -1,0 +1,52 @@
+{#login/templates/login/index.html#}
+ 
+{% extends 'base.html' %}
+{% block title %}商品信息{% endblock %}
+{% block nav_home_active1 %}active{% endblock %}
+{% block content %}
+    {% if request.session.is_login %}
+    <div>
+    	<a href="/add_good" class="btn btn-primary btn-lg active" role="button">更新商品信息</a>
+	</div>
+	<div>
+    	<table border="1" class="table table-hover">
+      	  	<thead>
+      	  		<tr>
+      	     		  <th>商品编号</th>
+      	      		<th>商品名称</th>
+      	      		<th>商店编号</th>
+      	      		<th>库存数量(件)</th>
+      	      		<th>出厂日期</th>
+      	      		<th>过期日期</th>
+      	      		<th>工厂编号</th>
+      	      		<th>进货价（元）</th>
+      	      		<th>售价（元）</th>
+      	      		<th>操作</th>
+      	  		</tr>
+      	  	</thead>
+      	  	<tbody>
+        		{% for good in goods_list %}
+            	<tr>
+               		<td>{{ good.good_num }}</td>
+                	<td>{{ good.good_name }}</td>
+                	<td>{{ good.shop_num.shop_num }}</td>
+                	<td>{{ good.quantity }}</td>
+                	<td>{{ good.created_time }}</td>
+                	<td>{{ good.end_time }}</td>
+                	<td>{{ good.fac_num.fac_num }}</td>
+                	<td>{{ good.in_price }}</td>
+                	<td>{{ good.out_price }}</td>
+                	<td>
+                    	<a href="/del_good?nid={{ good.pk }}" class="btn btn-primary btn-xs active" role="button">删除</a>
+                    	|
+                    	<a href="/edit_good?nid={{ good.pk }}" class="btn btn-primary btn-xs active" role="button">编辑</a>
+                	</td>
+            	</tr>
+        		{% endfor %}
+        	</tbody>
+    	</table>
+	</div>
+    {% else %}
+    <h1>你尚未登录，只能访问公开内容！</h1>
+    {% endif %}
+{% endblock %}

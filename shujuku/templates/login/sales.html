@@ -1,0 +1,30 @@
+{#login/templates/login/index.html#}
+ 
+{% extends 'base.html' %}
+{% block title %}销售记录{% endblock %}
+{% block nav_home_active3 %}active{% endblock %}
+{% block content %}
+	{% if request.session.is_login %}
+    <table  class="table table-hover">
+    	<tr>
+    		<td>商店编号</td>
+        	<td>商品编号</td>
+        	<td>数量（件）</td>
+        	<td>盈利（元）</td>
+            <td>交易时间</td>
+    	</tr>
+    	</tr>
+    	{% for list in sales_lists %}
+        	<tr>
+            	<td>{{ list.shop_num.shop_num }}</td>
+            	<td>{{ list.good_num.good_num }}</td>
+            	<td>{{ list.sales_num }}</td>
+            	<td>{{ list.profit }}</td>
+                <td>{{ list.create_time }}</td>
+        	</tr>
+    	{% endfor %}
+	</table>
+	{% else %}
+    <h1>你尚未登录，只能访问公开内容！</h1>
+    {% endif %}
+{% endblock %}
